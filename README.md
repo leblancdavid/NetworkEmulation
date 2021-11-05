@@ -68,3 +68,56 @@ The ICoreNode interface inherits from the base INetworkNode interface, and provi
 
 In addition, while passing packets through the nodes, fragmentation may occur, which will be handled by the fragmentation task. The fragmentation task will handle the mechanism which fragments the packets and manage the tracking of reconstruction.
 
+#### IRoutingTable
+
+The IRoutingTable is the interface which manages the routing tables within core nodes. The routing table is simply a dictionary for which the keys are the IP Addresses of destinations, and the value is simply the routing information. Currently, the routing information will simply have the cost to reach the IP Address, and which port the data should go through to reach the destination.
+
+#### IEndpointNode
+
+The IEndpointNode interface is used for endpoint nodes. The Endpoint nodes handle the higher level functionality of file transfers protocols. It includes additional functionality to send and receive files, and includes event handlers which notify when file transfer packets are received and when the file transfer has completed. The actual protocol which defines how files are transferred will be explained later.
+
+The Endpoint nodes only connect to a single other netwwork node, so the AddConnectionPoint method will throw exceptions if an endpoint node attempts to connect to more than a single point.
+
+### Network Link Layer
+
+The network link layer is the layer where data gets transferred between nodes. The base protocol used to do the transfer is UDP (as required by the project). The link layer is the simplest layer in the virtual network. It's role is to ensure that data can flow from one node to another. The links use UDP sockets at each end of the nodes, and listen for incoming data, which must be done asynchronously to ensure that data is processed through the link in real-time. Upon receiving the data, it will fire the event to notify the network node that a packet has arrived.
+
+#### INodeConnection
+
+Another aspect to note for the link layer is that the link itself does not care about the content of the packets it sends or receives, it merely just passes it to and from the network nodes. But, to satisfy the requirements of the project, the links have a certain probability of either dropping a packet or randomly flipping some of the bits causing errors. These will happen upon sending or receiving packets.
+
+### Network Protocols
+
+The protocols will be designed to perform file transfers from one endpoint node to another. There are many requirements that need to be met to perform the file transfers. The files must be transferred completely and without errors. To ensure these requirements are met, the file at the source must be broken up into multiple packets. The packets must be routed throughout the network and arrive successfully at the destination.
+
+To ensure that the packets arrive at their destination properly, the nodes will use the routing tables to direct the flow of data. These tables can be build manually, or automatically updated. To accomplish automatic updating of the tables, there will be a routing packet which navigates from node to node and keeps a history of nodes visited. Upon reaching a core node, the routing packet will be checked and the routing tables updated if a better path has been found.
+
+Upon arrival to the destination, the packets must be checked for errors. There are two basic ways to deal with errors within packets:
+
+- Acknowledge the error, drop the packet and request a retransmission of that packet.
+- Keep the packet and correct the error to repair the packet.
+
+Option 1) will most likely be the preferred option for this project, but given enough time, option 2) could be explored. Upon receiving packets (and errors are dealt with), the file can be reconstructed at the destination. Common issues can arise when rebuilding a file, such as duplicate packets or out of order packets. 
+
+Rather that doing a back-and-forth request and acknowledgment type of file transfer (commonly used in TCP), the source will simply send packets in order and assume that it reached the destination. Upon receiving said packets, the destination will look at the index of the packet (which block of the file it belongs to), and populate that block in the output file. It will keep track of blocks missed (out of order, dropped, or errors on packets), and after a certain delay, send a request for retransmission.
+
+#### IPacket
+
+The IPacket interface will be the base interface for the packets. It provides basic functionality which is needed for the packets. All packets inherit from this base interface.
+
+##### BasicPacket
+
+The BasicPacket will be the generic basic IPacket implementation. This is just a default packet that can be used to retrieve the head and data from the packet.
+
+##### RoutingProbePacket
+
+The RoutingProbePacket is used to build the routing tables at the core nodes of the network. It inherits from the IPacket interface and adds a history list of the past nodes visited.
+
+##### FileTransferPacket
+
+The FileTransferPacket is used for the file transfer protocol. It inherits from the IPacket interface. It includes extra fields which will allow it to reliably transfer file bytes to its destination. This includes a code which describes the type of file transfer packet it is, and the block section of the file the packet corresponds to.
+
+#### Protocol Tasks
+
+There will be a task object which will manage the file transfer tasks. This will keep track of blocks transferred and received, and manage the windows for retransmission of missing blocks. The implementation details of this are still under work.
+
