@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Desktop
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkEmulation", "NetworkEmulation\NetworkEmulation.csproj", "{6303B1B9-2872-41FF-A6E8-06B928A5E1E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkEmulationTestConsole", "NetworkEmulationTestConsole\NetworkEmulationTestConsole.csproj", "{20064165-85AA-4FB1-B9B9-C8E0236D4ADC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkEmulatorApp", "NetworkEmulatorApp\NetworkEmulatorApp.csproj", "{69B5B227-C356-4689-A424-1EAB18010CFA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SingleNodeProcess", "SingleNodeProcess\SingleNodeProcess.csproj", "{2E555C63-A485-4BA2-9A44-CB9C111BB344}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6303B1B9-2872-41FF-A6E8-06B928A5E1E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6303B1B9-2872-41FF-A6E8-06B928A5E1E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6303B1B9-2872-41FF-A6E8-06B928A5E1E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6303B1B9-2872-41FF-A6E8-06B928A5E1E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20064165-85AA-4FB1-B9B9-C8E0236D4ADC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20064165-85AA-4FB1-B9B9-C8E0236D4ADC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20064165-85AA-4FB1-B9B9-C8E0236D4ADC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20064165-85AA-4FB1-B9B9-C8E0236D4ADC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69B5B227-C356-4689-A424-1EAB18010CFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69B5B227-C356-4689-A424-1EAB18010CFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69B5B227-C356-4689-A424-1EAB18010CFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69B5B227-C356-4689-A424-1EAB18010CFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E555C63-A485-4BA2-9A44-CB9C111BB344}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E555C63-A485-4BA2-9A44-CB9C111BB344}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E555C63-A485-4BA2-9A44-CB9C111BB344}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E555C63-A485-4BA2-9A44-CB9C111BB344}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
